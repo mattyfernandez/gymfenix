@@ -1,0 +1,43 @@
+﻿@model GimnasioFenix.Models.DataList
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="margin-top:50px; margin-left:20px">Reservas</h2>
+<div class="container">
+    <table class="table-bordered miTab">
+        <tr>
+            <th></th>
+            @foreach (var dia in Model.Dias)
+            {
+                <th>
+                   <p class="blanco"> @dia.Dia1 </p>
+                </th>
+            }
+        </tr>
+        @{
+            int h = 0;
+
+            foreach (var horario in Model.Horarios)
+            {
+                <tr>
+                    <th>
+                        <p class="blanco"> @horario.Horario1 </p>
+                    </th>
+                    @for (var d = 0; d < 7; d++)
+                {
+                        <td>
+                            @if (null != Model.GrillaActividades[h, d])
+                            {
+                                <b><a href="@Url.Action("Edit", "Actividades", new { ID = Model.GrillaActividades[h, d].Id })" class="miA">@Model.GrillaActividades[h, d].Actividad1</a></b>
+                            }
+                        </td>
+                    }
+                </tr>
+                h++;
+            }
+        }
+
+    </table>
+</div>
